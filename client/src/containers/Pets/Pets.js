@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { adoptPet, loadAdopters } from './Pets.slice';
+import { adoptPet, loadAdopters, unadoptPet } from './Pets.slice';
 import classes from './Pets.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import petListJson from '../../pets.json';
@@ -21,7 +21,9 @@ const Pets = () => {
       {petListJson.map(pet => <PetCard
         pet={pet}
         adopted={adoptersList[pet.id]}
-        onAdopt={id => dispatch(adoptPet(id))} />)}
+        userAddress={address}
+        onAdopt={id => dispatch(adoptPet(id))}
+        onUnadopt={id => dispatch(unadoptPet(id))} />)}
     </div>
   </div>
 };
