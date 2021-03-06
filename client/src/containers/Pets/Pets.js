@@ -14,8 +14,12 @@ const Pets = () => {
   useEffect(() => {
     dispatch(loadAdopters());
 
-    // Refresh data after 30 seconds
-    setInterval(() => dispatch(loadAdopters()), 30000)
+    // Refresh data after 2 seconds
+    const intervalRef = setInterval(() => dispatch(loadAdopters()), 2000)
+
+    return () => {
+      clearInterval(intervalRef);
+    }
   }, []);
 
 
