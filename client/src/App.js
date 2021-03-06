@@ -16,7 +16,10 @@ function App() {
     <div>
       {web3
         ? <Pets />
-        : null}
+        : <div className="web3-error">
+          <span className="error-heading">Unable to initialize Web3</span>
+          <span className="error-description">Make sure you have metamask installed and connected with Ropsten</span>
+          </div>}
     </div>
   );
 }
