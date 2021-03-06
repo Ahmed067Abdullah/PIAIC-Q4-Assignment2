@@ -8,6 +8,7 @@ import PetCard from '../../components/PetCard/PetCard';
 const Pets = () => {
   const address = useSelector((state) => state.main.address);
   const adoptersList = useSelector((state) => state.pets.adopters);
+  const adoptersLoading = useSelector((state) => state.pets.adoptersLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const Pets = () => {
         pet={pet}
         adopted={adoptersList[pet.id]}
         userAddress={address}
+        loading={adoptersLoading.find(a => a === pet.id) !== undefined}
         onAdopt={id => dispatch(adoptPet(id))}
         onUnadopt={id => dispatch(unadoptPet(id))} />)}
     </div>

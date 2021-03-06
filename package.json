@@ -7,11 +7,13 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install-all": "npm run install-client && npm run install-contracts",
+    "install-client": "cd client && npm i",
+    "start-client": "cd client && npm start",
+    "deploy-client": "cd client && npm run build && surge",
+    "install-contracts": "cd ethereum && npm i",
+    "deploy-contracts": "cd ethereum && truffle migrate"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@truffle/hdwallet-provider": "^1.2.2"
-  }
+  "license": "ISC"
 }

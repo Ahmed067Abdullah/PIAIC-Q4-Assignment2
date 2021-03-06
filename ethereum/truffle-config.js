@@ -11,7 +11,7 @@ const mnemonic = fs.readFileSync("./config/.mnemonic-secret").toString().trim();
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // for more about customizing your Truffle configuration!
-  contracts_build_directory: path.join(__dirname, "client/src/contracts"),
+  contracts_build_directory: path.join(__dirname, "../client/src/contracts"),
   networks: {
     development: {
       host: "127.0.0.1",

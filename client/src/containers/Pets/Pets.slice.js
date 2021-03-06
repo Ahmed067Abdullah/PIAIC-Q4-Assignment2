@@ -32,28 +32,44 @@ export const unadoptPet = createAsyncThunk(
   }
 );
 
+const removeAdapterLoading = (loading, petId) => loading.filter(a => a !== petId);
+
 const petsSlice = createSlice({
   name: "PetsSlice",
   initialState: {
     adopters: [],
+    adoptersLoading: []
   },
   extraReducers: {
     [loadAdopters.fulfilled]: (state, action) => {
       state.adopters = action.payload
     },
     [adoptPet.fulfilled]: (state, action) => {
-      state.adopters[action.payload.petIndex] = action.payload.adopterAddress
+      state.adopters[action.payload.petIndex] = action.payload.adopterAddress;
+      state.adoptersLoading = removeAdapterLoading(state.adoptersLoading, action.meta.arg);
     },
     [adoptPet.pending]: (state, action) => {
-
+      state.adoptersLoading.push(action.meta.arg);
     },
     [adoptPet.rejected]: (state, action) => {
       const { message } = action.error;
-      if(message.substring(message.indexOf("Already adopted")));
-      alert("Pet is already adopted");
+      state.adoptersLoading = removeAdapterLoading(state.adoptersLoading, action.meta.arg);
+      if (message.indexOf("Already adopted") !== -1 || message.indexOf("Transaction has been reverted by the EVM") !== -1) alert("Pet is already adopted");
+      else alert(message);
     },
     [unadoptPet.fulfilled]: (state, action) => {
-      state.adopters[action.payload.petIndex] = "0x0000000000000000000000000000000000000000"
+      state.adopters[action.payload.petIndex] = "0x0000000000000000000000000000000000000000";
+      state.adoptersLoading = removeAdapterLoading(state.adoptersLoading, action.meta.arg);
+    },
+    [unadoptPet.pending]: (state, action) => {
+      state.adoptersLoading.push(action.meta.arg);
+    },
+    [unadoptPet.rejected]: (state, action) => {
+      const { message } = action.error;
+      state.adoptersLoading = removeAdapterLoading(state.adoptersLoading, action.meta.arg);
+      if (message.indexOf("You have not adopted this pet") !== -1 || message.indexOf("Transaction has been reverted by the EVM") !== -1) alert("You have not adopted this pet");
+      else alert(message);
+      console.log(message);
     },
   }
 })
