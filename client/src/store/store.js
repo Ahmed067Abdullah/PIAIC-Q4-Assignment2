@@ -1,13 +1,15 @@
 
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import { adoptReducer } from './adoptSlice'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import main from './mainSlice';
+import pets from '../containers/Pets/Pets.slice';
 
 export const store = configureStore({
-    reducer:  {
-        adoptReducer : adoptReducer
-    },
-    middleware: getDefaultMiddleware({
-        serializableCheck: false,
-        immutableCheck: false,
-    })
-})
+  reducer: {
+    main,
+    pets
+  },
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+    immutableCheck: false,
+  })
+});

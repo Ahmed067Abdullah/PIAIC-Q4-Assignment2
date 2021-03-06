@@ -1,0 +1,23 @@
+.heading {
+  font-size: 32px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.heading span {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.pets-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: calc(100vh - 120px);
+  /* background: green; */
+  overflow-y: auto;
+}
