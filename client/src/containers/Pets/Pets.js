@@ -12,6 +12,9 @@ const Pets = () => {
 
   useEffect(() => {
     dispatch(loadAdopters());
+
+    // Refresh data after 30 seconds
+    setInterval(() => dispatch(loadAdopters()), 30000)
   }, []);
 
 
@@ -19,6 +22,7 @@ const Pets = () => {
     <div className={classes['heading']}>Welcome to Petshop<span> {address} </span> </div>
     <div className={classes['pets-container']}>
       {petListJson.map(pet => <PetCard
+        key={pet.id}
         pet={pet}
         adopted={adoptersList[pet.id]}
         userAddress={address}

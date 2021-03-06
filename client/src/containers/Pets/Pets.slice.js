@@ -14,10 +14,10 @@ export const adoptPet = createAsyncThunk(
   async (petIndex, thunkAPI) => {
     const contract = thunkAPI.getState().main.contract;
     const address = thunkAPI.getState().main.address;
-    const result = await contract.methods.adopt(petIndex).send({ from: address });
+    await contract.methods.adopt(petIndex).send({ from: address });
     return {
       adopterAddress: address,
-      petIndex: petIndex
+      petIndex
     };
   }
 );
@@ -28,9 +28,7 @@ export const unadoptPet = createAsyncThunk(
     const contract = thunkAPI.getState().main.contract;
     const address = thunkAPI.getState().main.address;
     await contract.methods.unadopt(petIndex).send({ from: address });
-    return {
-      petIndex: petIndex
-    };
+    return { petIndex };
   }
 );
 
@@ -50,7 +48,9 @@ const petsSlice = createSlice({
 
     },
     [adoptPet.rejected]: (state, action) => {
-      // state.adoptErrorMessage = action.error.message;
+      const { message } = action.error;
+      if(message.substring(message.indexOf("Already adopted")));
+      alert("Pet is already adopted");
     },
     [unadoptPet.fulfilled]: (state, action) => {
       state.adopters[action.payload.petIndex] = "0x0000000000000000000000000000000000000000"
